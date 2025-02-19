@@ -7,13 +7,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-    // Verificar si el correo ya está registrado
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->rowCount() > 0) {
         echo "<p class='text-red-500 text-center'>El correo electrónico ya está registrado. Por favor, usa otro.</p>";
     } else {
-        // Si el correo no existe, insertar el nuevo usuario
         $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
         if ($stmt->execute([$name, $email, $password])) {
             header("location: login.php?success=registered");
