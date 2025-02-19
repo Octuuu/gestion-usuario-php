@@ -2,6 +2,7 @@
 include '../includes/header.php';
 require_once '../config/database.php';
 
+// Verifica que el usuario esté logueado
 if (!isset($_SESSION["user_id"])) {
     header("location: login.php");
     exit();
@@ -9,7 +10,7 @@ if (!isset($_SESSION["user_id"])) {
 
 $user_name = $_SESSION["user_name"];
 $user_email = isset($_SESSION["user_email"]) ? $_SESSION["user_email"] : 'No disponible'; 
-$user_role = $_SESSION["user_role"];
+$user_role = isset($_SESSION["user_role"]) ? $_SESSION["user_role"] : 'No disponible';
 ?>
 
 <!DOCTYPE html>
@@ -42,9 +43,6 @@ $user_role = $_SESSION["user_role"];
                 <a href="delete_account.php" class="px-4 py-2 bg-red-500 rounded hover:bg-red-600 inline-block">Eliminar Cuenta</a>
             </div>
 
-            <div class="mt-6">
-                <p class="text-md text-teal-300"></p>
-            </div>
         </div>
     </div>
 
